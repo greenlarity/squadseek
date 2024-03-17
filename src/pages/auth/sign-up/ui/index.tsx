@@ -3,6 +3,7 @@
 import { SignUpBtn } from '@/features/auth/sign-up';
 import { TextField } from '@mui/material';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Form } from '@/widgets/form';
@@ -20,6 +21,8 @@ export const SignUp: React.FC = () => {
 
 	const passwordRegex = /^(?=.*[A-Z])(?=.*[_^%#])(?=.*[a-zA-Z]).{8,}$/;
 	const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/;
+
+	const router = useRouter();
 
 	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(event.target.value);
@@ -70,6 +73,11 @@ export const SignUp: React.FC = () => {
 			}, 1000);
 			return;
 		}
+		// localStorage.clear();
+
+		localStorage.setItem('email', email);
+		localStorage.setItem('password', password);
+		router.push('/');
 	};
 	return (
 		<Form submit={handleSubmit} className='flex flex-col mx-auto items-center'>
